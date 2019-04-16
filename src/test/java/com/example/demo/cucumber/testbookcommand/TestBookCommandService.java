@@ -7,7 +7,6 @@ import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.BeforeClass;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -23,7 +22,6 @@ import com.example.demo.exception.bookexception.BookNotFoundException;
 import com.example.demo.exception.bookexception.DuplicateBookIdException;
 import com.example.demo.exception.bookexception.DuplicateCodeException;
 import com.example.demo.exception.bookexception.ValidParamException;
-import com.example.demo.queryside.repository.BookQueryRepository;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest()
@@ -36,7 +34,7 @@ public class TestBookCommandService {
 
 	Book book1 = new Book(1, "1", "1", "1", "1", "1", "1", "1", ZonedDateTime.now(), "1", ZonedDateTime.now());
 	Book book2 = new Book(-1, "1", "1", "1", "1", "1", "1", "1", ZonedDateTime.now(), "1", ZonedDateTime.now());
-	
+
 	@Test
 	public void testCreatBookCase1() {
 		Mockito.when(mockBookCommandRepository.save(book1)).thenReturn(book1);
@@ -91,7 +89,7 @@ public class TestBookCommandService {
 	@Test
 	void testDeleteBookCase1() {
 		Mockito.when(mockBookCommandRepository.findByUid(1)).thenReturn(book1);
-		assertEquals(bookCommandServiceImpl.deleteBook(1), book1.getUid());
+		assertEquals(bookCommandServiceImpl.deleteBook(1), book1);
 	}
 
 	@Test

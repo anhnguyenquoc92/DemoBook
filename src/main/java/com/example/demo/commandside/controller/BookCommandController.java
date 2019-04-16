@@ -1,4 +1,4 @@
-	 package com.example.demo.commandside.controller;
+package com.example.demo.commandside.controller;
 
 import javax.validation.Valid;
 
@@ -35,8 +35,8 @@ public class BookCommandController {
 	}
 
 	@DeleteMapping(value = "/books/delete/{uid}")
-	public ResponseEntity<Void> deleteBook(@PathVariable("uid") Integer uid) {
-		bookCommandService.deleteBook(uid);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+	public ResponseEntity<Book> deleteBook(@PathVariable("uid") Integer uid) {
+		Book outPut = bookCommandService.deleteBook(uid);
+		return new ResponseEntity<Book>(outPut, HttpStatus.OK);
 	}
 }

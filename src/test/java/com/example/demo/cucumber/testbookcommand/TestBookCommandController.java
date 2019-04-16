@@ -117,7 +117,7 @@ public class TestBookCommandController {
 
 	@Test
 	public void testDeleteBookCase1() throws Exception {
-		Mockito.when(bookCommandService.deleteBook(book.getUid())).thenReturn(book.getUid());
+		Mockito.when(bookCommandService.deleteBook(book.getUid())).thenReturn(book);
 		mvc.perform(delete("/api/command/books/delete/{uid}", book.getUid()).contentType(MediaType.APPLICATION_JSON))
 				.andExpect(status().isOk());
 	}

@@ -37,12 +37,12 @@ public class BookCommandServiceImpl implements BookCommandService {
 	}
 
 	@Override
-	public int deleteBook(int uid) {
-		Book book = bookCommandRepository.findByUid(uid);
-		if (book == null) {
+	public Book deleteBook(int uid) {
+		Book outPut = bookCommandRepository.findByUid(uid);
+		if (outPut == null) {
 			throw new BookNotFoundException("Book with id is " + uid + " Not Found");
 		}
-		bookCommandRepository.delete(book);
-		return uid;
+		bookCommandRepository.delete(outPut);
+		return outPut;
 	}
 }
