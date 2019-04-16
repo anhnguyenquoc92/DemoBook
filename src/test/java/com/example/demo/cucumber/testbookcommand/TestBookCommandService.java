@@ -22,12 +22,16 @@ import com.example.demo.exception.bookexception.BookNotFoundException;
 import com.example.demo.exception.bookexception.DuplicateBookIdException;
 import com.example.demo.exception.bookexception.DuplicateCodeException;
 import com.example.demo.exception.bookexception.ValidParamException;
+import com.example.demo.queryside.repository.BookQueryRepository;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest()
 public class TestBookCommandService {
 	@Mock
 	BookCommandRepository mockBookCommandRepository;
+	
+	@Mock
+	BookQueryRepository mockBookQueryRepository;
 
 	@InjectMocks
 	BookCommandServiceImpl bookCommandServiceImpl;
@@ -45,7 +49,7 @@ public class TestBookCommandService {
 	public void testCreatBookCase2() {
 		List<Integer> integers = new ArrayList<>();
 		integers.add(1);
-		Mockito.when(mockBookCommandRepository.getListUid()).thenReturn(integers);
+		Mockito.when(mockBookQueryRepository.getListUid()).thenReturn(integers);
 		Mockito.when(mockBookCommandRepository.save(book1)).thenReturn(book1);
 		DuplicateBookIdException exception = assertThrows(DuplicateBookIdException.class,
 				() -> bookCommandServiceImpl.createBook(book1));
@@ -56,7 +60,7 @@ public class TestBookCommandService {
 	public void testCreateBookCase3() {
 		List<String> strings = new ArrayList<>();
 		strings.add("1");
-		Mockito.when(mockBookCommandRepository.getListCode()).thenReturn(strings);
+		Mockito.when(mockBookQueryRepository.getListCode()).thenReturn(strings);
 		Mockito.when(mockBookCommandRepository.save(book1)).thenReturn(book1);
 		DuplicateCodeException exception = assertThrows(DuplicateCodeException.class,
 				() -> bookCommandServiceImpl.createBook(book1));
@@ -73,14 +77,14 @@ public class TestBookCommandService {
 
 	@Test
 	public void testUpdateBookCase1() {
-		Mockito.when(mockBookCommandRepository.findByUid(1)).thenReturn(book1);
+		Mockito.when(mockBookQueryRepository.findByUid(1)).thenReturn(book1);
 		Mockito.when(mockBookCommandRepository.save(book1)).thenReturn(book1);
 		assertEquals(bookCommandServiceImpl.updateBook(book1), book1);
 	}
 
 	@Test
 	void testUpdateBookCase2() {
-		Mockito.when(mockBookCommandRepository.findByUid(1)).thenReturn(null);
+		Mockito.when(mockBookQueryRepository.findByUid(1)).thenReturn(null);
 		BookNotFoundException exception = assertThrows(BookNotFoundException.class,
 				() -> bookCommandServiceImpl.updateBook(book1));
 		assertEquals(exception.getMessage(), "Book with id is " + book1.getUid() + " Not Found");
@@ -88,13 +92,13 @@ public class TestBookCommandService {
 
 	@Test
 	void testDeleteBookCase1() {
-		Mockito.when(mockBookCommandRepository.findByUid(1)).thenReturn(book1);
+		Mockito.when(mockBookQueryRepository.findByUid(1)).thenReturn(book1);
 		assertEquals(bookCommandServiceImpl.deleteBook(1), book1);
 	}
 
 	@Test
 	void testDeleteBookCase2() {
-		Mockito.when(mockBookCommandRepository.findByUid(1)).thenReturn(null);
+		Mockito.when(mockBookQueryRepository.findByUid(1)).thenReturn(null);
 		BookNotFoundException exception = assertThrows(BookNotFoundException.class,
 				() -> bookCommandServiceImpl.deleteBook(1));
 		assertEquals(exception.getMessage(), "Book with id is 1 Not Found");

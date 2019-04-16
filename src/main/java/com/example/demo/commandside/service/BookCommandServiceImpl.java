@@ -8,17 +8,21 @@ import org.springframework.stereotype.Service;
 import com.example.demo.commandside.repository.BookCommandRepository;
 import com.example.demo.entity.Book;
 import com.example.demo.exception.bookexception.BookNotFoundException;
+import com.example.demo.queryside.repository.BookQueryRepository;
 import com.example.demo.utility.ValidParam;
 
 @Service
 public class BookCommandServiceImpl implements BookCommandService {
 	@Autowired
 	BookCommandRepository bookCommandRepository;
+	
+	@Autowired
+	BookQueryRepository bookQueryRepository;
 
 	@Override
 	public Book createBook(Book book) {
-		ValidParam.checkUniqueBookId(bookCommandRepository.getListUid(), book.getUid());
-		ValidParam.checkUniqueCode(bookCommandRepository.getListCode(), book.getCode());
+		ValidParam.checkUniqueBookId(bookQueryRepository.getListUid(), book.getUid());
+		ValidParam.checkUniqueCode(bookQueryRepository.getListCode(), book.getCode());
 		ValidParam.validBookId(book.getUid());
 		bookCommandRepository.save(book);
 		return book;
@@ -26,11 +30,11 @@ public class BookCommandServiceImpl implements BookCommandService {
 
 	@Override
 	public Book updateBook(Book book) {
-		Book outPut = bookCommandRepository.findByUid(book.getUid());
+		Book outPut = bookQueryRepository.findByUid(book.getUid());
 		if (outPut == null) {
 			throw new BookNotFoundException("Book with id is " + book.getUid() + " Not Found");
 		}
-		List<String> outPuts = bookCommandRepository.getListCode();
+		List<String> outPuts = bookQueryRepository.getListCode();
 		outPuts.remove(book.getCode());
 		ValidParam.checkUniqueCode(outPuts, book.getCode());
 		return bookCommandRepository.save(book);
@@ -38,7 +42,7 @@ public class BookCommandServiceImpl implements BookCommandService {
 
 	@Override
 	public Book deleteBook(int uid) {
-		Book outPut = bookCommandRepository.findByUid(uid);
+		Book outPut = bookQueryRepository.findByUid(uid);
 		if (outPut == null) {
 			throw new BookNotFoundException("Book with id is " + uid + " Not Found");
 		}
