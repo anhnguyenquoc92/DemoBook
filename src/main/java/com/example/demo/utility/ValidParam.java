@@ -15,6 +15,7 @@ public class ValidParam {
 	}
 
 	public static void checkUniqueBookId(List<Integer> bookIds, int bookId) {
+		System.out.println("test merge 2");
 		if (bookIds.contains(bookId)) {
 			throw new DuplicateBookIdException("BookId should be unique");
 		}
