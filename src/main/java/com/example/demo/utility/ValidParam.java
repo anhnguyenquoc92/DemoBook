@@ -21,6 +21,7 @@ public class ValidParam {
 	}
 
 	public static void validBookId(int bookId) {
+		System.out.println("test merge 3");
 		if (bookId < 1) {
 			throw new ValidParamException("Book id should be greater than 1");
 		}
