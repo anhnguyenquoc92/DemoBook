@@ -8,6 +8,7 @@ import com.example.demo.exception.bookexception.ValidParamException;
 
 public class ValidParam {
 	public static void checkUniqueCode(List<String> codes, String code) {
+		System.out.println("test merge 2");
 		if (codes.contains(code)) {
 			throw new DuplicateCodeException("Code should be unique");
 		}
