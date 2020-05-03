@@ -10,10 +10,6 @@ public class ValidParam {
 	public static void checkUniqueCode(List<String> codes, String code) {
 		System.out.println("test merge 1");
 		System.out.println("test merge 2");
-		if (codes.contains(code)) {
-			System.out.println("test");
-			throw new DuplicateCodeException("Code should be unique");
-		}
 	}
 
 	public static void checkUniqueBookId(List<Integer> bookIds, int bookId) {
