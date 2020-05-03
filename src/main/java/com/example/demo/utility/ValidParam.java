@@ -11,6 +11,7 @@ public class ValidParam {
 		System.out.println("test merge 1");
 		System.out.println("test merge 2");
 		if (codes.contains(code)) {
+			System.out.println("test");
 			throw new DuplicateCodeException("Code should be unique");
 		}
 	}
