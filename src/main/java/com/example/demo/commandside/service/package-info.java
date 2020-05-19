@@ -7,4 +7,4 @@
  */
 package com.example.demo.commandside.service;
 
-akghskjdghkskgsjksjkjvuihvieiuvnieurvinkdjvnjkdnbkđ
+//akghskjdghkskgsjksjkjvuihvieiuvnieurvinkdjvnjkdnbkđ
