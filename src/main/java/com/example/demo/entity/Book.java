@@ -75,8 +75,4 @@ public class Book {
 	@Column(name = "update_date")
 	@UpdateTimestamp
 	ZonedDateTime updateDate;
-
-	public void getAll(){
-        System.out.println("get all test2");
-    }
 }
